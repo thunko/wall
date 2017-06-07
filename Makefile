@@ -9,7 +9,7 @@ itmo_ui.pot: itmo_ui
 	xgettext -o itmo_ui.pot -L Shell itmo_ui
 
 clone:
-	git clone https://github.com/itmo-infocom/calc_examples.git
+	git clone https://github.com/thunko/wall.git
 
 download:
 	git pull
