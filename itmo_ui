@@ -4,6 +4,10 @@ WALL=itmot
 HOST=localhost
 PORT=1234
 
+SENDER=$1
+RECEIVER=$2
+AMOUNT=$3
+
 FILE1=/tmp/wall1-$$
 FILE2=/tmp/wall2-$$
 ERROR=/tmp/wall-err-$$
