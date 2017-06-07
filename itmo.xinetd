@@ -1,0 +1,11 @@
+# default: on
+# description: The wallet server
+service itmot
+{
+	flags		= REUSE
+	socket_type	= stream        
+	wait		= no
+	user		= nobody
+	server		= /usr/local/bin/itmot
+	disable		= no
+}
