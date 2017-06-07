@@ -1,6 +1,6 @@
 #!/bin/sh
 
-WALL=itmo
+WALL=itmot
 HOST=localhost
 PORT=1234
 
