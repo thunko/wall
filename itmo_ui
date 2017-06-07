@@ -57,12 +57,12 @@ do
 	$DIALOG --inputbox "`gettext \"Enter amount:\"`" 8 35 2> $FILE1 || end
 	if cat $FILE1 | $WALL > $FILE2 2>$ERROR
 	then
-            	MSG="`gettext \"Sender:\"` `cat $FILE1`\\n\\n`gettext \"Continue?\"`"
-            	$DIALOG --yesno "$MSG" 7 20 || end
-            	MSG="`gettext \"Receiver:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
-            	$DIALOG --yesno "$MSG" 7 20 || end
-		MSG="`gettext \"Amount:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
-		$DIALOG --yesno "$MSG" 7 20 || end
+            	MSG1="`gettext \"Sender:\"` `cat $FILE1`\\n\\n`gettext \"Continue?\"`"
+            	$DIALOG --yesno "$MSG1" 7 20 || end
+            	MSG2="`gettext \"Receiver:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
+            	$DIALOG --yesno "$MSG2" 7 20 || end
+		MSG3="`gettext \"Amount:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
+		$DIALOG --yesno "$MSG3" 7 20 || end
 	else
 		MSG="`gettext \"Error:\"`\\n\\n`cat $ERROR`\\n\\n`gettext \"Continue?\"`"
 		$DIALOG --yesno "$MSG" 10 35 || end
