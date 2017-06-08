@@ -4,14 +4,11 @@ WALL=itmot
 HOST=localhost
 PORT=1234
 
-SENDER=$1
-RECEIVER=$2
-AMOUNT=$3
+#SENDER=$1
+#RECEIVER=$2
+#AMOUNT=$3
 
-FILE1=/tmp/wall1-$$
-FILE2=/tmp/wall2-$$
-ERROR=/tmp/wall-err-$$
-
+PARAMFILE=/tmp/wall-$$
 GETTEXT="gettext -d itmo_ui"
 
 if [ -r ~/.wall.conf ]
@@ -29,7 +26,7 @@ help () {
 }
 
 end () {
-	rm -f $FILE1 $FILE2 $ERROR
+	rm -f $PARAMFILE
 	exit
 }
 
@@ -60,20 +57,20 @@ fi
 
 while true
 do
-	$DIALOG --inputbox "`gettext \"Enter amount:\"`" 8 35 2> $FILE1 || end
-	if cat $FILE1 | $WALL > $FILE2 2>$ERROR
-	then
-		MSG1="`gettext \"Sender:\"` `echo $SENDER`\\n\\n`gettext \"Continue?\"`"
-		$DIALOG --yesno "$MSG1" 8 35 || end
-		MSG2="`gettext \"Receiver:\"` `echo $RECEIVER`\\n\\n`gettext \"Continue?\"`"
-		$DIALOG --yesno "$MSG2" 8 35 || end
-		MSG3="`gettext \"Amount to transfer:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
-		$DIALOG --yesno "$MSG3" 8 35 || end
+	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert SENDER account:\"`" 8 35 2> $PARAMFILE
+	SENDER=$(cat $PARAMFILE)
 
-		TRANSACTION=$(./itmot $SENDER $RECEIVER $AMOUNT)
-		$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 8 35 || end
-	else
-		MSG="`gettext \"Error:\"`\\n\\n`cat $ERROR`\\n\\n`gettext \"Continue?\"`"
-		$DIALOG --yesno "$MSG" 10 35 || end
-	fi
+	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert RECEIVER account:\"`" 8 35 2> $PARAMFILE
+	RECEIVER=$(cat $PARAMFILE)
+
+	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert AMOUNT to transfer in Ethers:\"`" 8 35 2> $PARAMFILE
+	AMOUNT=$(cat $PARAMFILE)
+
+	TRANSACTION=$(./itmot -a $SENDER $RECEIVER $AMOUNT)
+	echo $TRANSACTION
+
+	MSG="`$GETTEXT \"Transaction ID is:\"`"
+	MSG+="$TRANSACTION"
+	$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 6 20
+	end
 done
