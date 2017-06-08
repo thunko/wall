@@ -31,6 +31,17 @@ if [ ! -z $1 ] && [ $1 = "-h" ];
         exit
 fi
 
+#pulling variables from the UI script
+if [ ! -z $1 ];
+then	
+		if [ $1 = "-a" ];
+		then
+			TRANSACTION="$(send $2 $3 $4)"
+			echo $TRANSACTION
+			exit
+		fi
+fi
+
 while true
 do
 	printf "Please enter the account of SENDER:\n"

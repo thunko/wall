@@ -71,6 +71,6 @@ do
 
 	MSG="`$GETTEXT \"Transaction ID is:\"`"
 	MSG+="$TRANSACTION"
-	$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 6 20
+	$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 10 40
 	end
 done
