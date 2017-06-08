@@ -35,7 +35,7 @@ while true
 do
 	printf "Please enter the account of SENDER:\n"
 	read SENDER
-	
+
 	printf "Please enter the account of RECEIVER:\n"
 	read RECEIVER
 

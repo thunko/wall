@@ -63,7 +63,7 @@ do
 	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert RECEIVER account:\"`" 8 35 2> $PARAMFILE
 	RECEIVER=$(cat $PARAMFILE)
 
-	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert AMOUNT to transfer in Ethers:\"`" 8 35 2> $PARAMFILE
+	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert AMOUNT to transfer Ethers:\"`" 8 35 2> $PARAMFILE
 	AMOUNT=$(cat $PARAMFILE)
 
 	TRANSACTION=$(./itmot -a $SENDER $RECEIVER $AMOUNT)
