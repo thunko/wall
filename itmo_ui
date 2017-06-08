@@ -73,4 +73,7 @@ do
 	MSG+="$TRANSACTION"
 	$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 10 40
 	end
+
+	MSG="`$GETTEXT \"Do you want to make another transaction?\"`"
+	$DIALOG --title "$NAME" --yesno "$MSG" 10 50 || exit
 done
