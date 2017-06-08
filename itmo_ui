@@ -67,10 +67,8 @@ do
 		$DIALOG --yesno "$MSG1" 7 20 || end
 		MSG2="`gettext \"Receiver:\"` `echo $RECEIVER`\\n\\n`gettext \"Continue?\"`"
 		$DIALOG --yesno "$MSG2" 7 20 || end
-		MSG3="`gettext \"Tramnsaction:\"` `echo $TRANSACTION`\\n\\n`gettext \"Continue?\"`"
+		MSG3="`gettext \"Amount to transfer:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
 		$DIALOG --yesno "$MSG3" 7 20 || end
-		MSG4="`gettext \"Amount:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
-		$DIALOG --yesno "$MSG4" 7 20 || end
 
 		TRANSACTION=$(./itmot -a $SENDER $RECEIVER $AMOUNT)
 		echo $TRANSACTION
