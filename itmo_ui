@@ -12,6 +12,8 @@ FILE1=/tmp/wall1-$$
 FILE2=/tmp/wall2-$$
 ERROR=/tmp/wall-err-$$
 
+GETTEXT="gettext -d itmo_ui"
+
 if [ -r ~/.wall.conf ]
 then
 	. ~/.wall.conf
@@ -67,8 +69,14 @@ do
 		$DIALOG --yesno "$MSG2" 7 20 || end
 		MSG3="`gettext \"Tramnsaction:\"` `echo $TRANSACTION`\\n\\n`gettext \"Continue?\"`"
 		$DIALOG --yesno "$MSG3" 7 20 || end
-		MSG="`gettext \"Amount:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
-		$DIALOG --yesno "$MSG" 7 20 || end
+		MSG4="`gettext \"Amount:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
+		$DIALOG --yesno "$MSG4" 7 20 || end
+
+		TRANSACTION=$(./itmot -a $SENDER $RECEIVER $AMOUNT)
+		echo $TRANSACTION
+		MSG="`$GETTEXT \"Transaction ID is:\"`"
+		MSG+="$TRANSACTION"
+		$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 6 20
 	else
 		MSG="`gettext \"Error:\"`\\n\\n`cat $ERROR`\\n\\n`gettext \"Continue?\"`"
 		$DIALOG --yesno "$MSG" 10 35 || end
