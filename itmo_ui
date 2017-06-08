@@ -64,9 +64,9 @@ do
 		MSG1="`gettext \"Sender:\"` `echo $SENDER`\\n\\n`gettext \"Continue?\"`"
 		$DIALOG --yesno "$MSG1" 7 20 || end
 		MSG2="`gettext \"Receiver:\"` `echo $RECEIVER`\\n\\n`gettext \"Continue?\"`"
-                $DIALOG --yesno "$MSG2" 7 20 || end
+		$DIALOG --yesno "$MSG2" 7 20 || end
 		MSG3="`gettext \"Tramnsaction:\"` `echo $TRANSACTION`\\n\\n`gettext \"Continue?\"`"
-                $DIALOG --yesno "$MSG3" 7 20 || end
+		$DIALOG --yesno "$MSG3" 7 20 || end
 		MSG="`gettext \"Amount:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
 		$DIALOG --yesno "$MSG" 7 20 || end
 	else
