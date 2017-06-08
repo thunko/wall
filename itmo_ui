@@ -64,17 +64,17 @@ do
 	if cat $FILE1 | $WALL > $FILE2 2>$ERROR
 	then
 		MSG1="`gettext \"Sender:\"` `echo $SENDER`\\n\\n`gettext \"Continue?\"`"
-		$DIALOG --yesno "$MSG1" 7 20 || end
+		$DIALOG --yesno "$MSG1" 8 35 || end
 		MSG2="`gettext \"Receiver:\"` `echo $RECEIVER`\\n\\n`gettext \"Continue?\"`"
-		$DIALOG --yesno "$MSG2" 7 20 || end
+		$DIALOG --yesno "$MSG2" 8 35 || end
 		MSG3="`gettext \"Amount to transfer:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
-		$DIALOG --yesno "$MSG3" 7 20 || end
+		$DIALOG --yesno "$MSG3" 8 35 || end
 
 		TRANSACTION=$(./itmot -a $SENDER $RECEIVER $AMOUNT)
 		echo $TRANSACTION
 		MSG="`$GETTEXT \"Transaction ID is:\"`"
 		MSG+="$TRANSACTION"
-		$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 6 20
+		$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 8 35
 	else
 		MSG="`gettext \"Error:\"`\\n\\n`cat $ERROR`\\n\\n`gettext \"Continue?\"`"
 		$DIALOG --yesno "$MSG" 10 35 || end
