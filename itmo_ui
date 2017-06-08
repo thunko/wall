@@ -71,7 +71,7 @@ do
 		$DIALOG --yesno "$MSG3" 8 35 || end
 
 		TRANSACTION=$(./itmot $SENDER $RECEIVER $AMOUNT)
-		$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 8 35
+		$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 8 35 || end
 	else
 		MSG="`gettext \"Error:\"`\\n\\n`cat $ERROR`\\n\\n`gettext \"Continue?\"`"
 		$DIALOG --yesno "$MSG" 10 35 || end
