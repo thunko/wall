@@ -70,10 +70,7 @@ do
 		MSG3="`gettext \"Amount to transfer:\"` `cat $FILE2`\\n\\n`gettext \"Continue?\"`"
 		$DIALOG --yesno "$MSG3" 8 35 || end
 
-		TRANSACTION=$(./itmot -a $SENDER $RECEIVER $AMOUNT)
-		echo $TRANSACTION
-		MSG="`$GETTEXT \"Transaction ID is:\"`"
-		MSG+="$TRANSACTION"
+		TRANSACTION=$(./itmot $SENDER $RECEIVER $AMOUNT)
 		$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 8 35
 	else
 		MSG="`gettext \"Error:\"`\\n\\n`cat $ERROR`\\n\\n`gettext \"Continue?\"`"
