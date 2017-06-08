@@ -2,7 +2,7 @@ install:
 	install itmot itmo_ui /usr/local/bin
 	which gdialog >/dev/null 2>&1 || install gdialog /usr/local/bin
 	grep -q "`cat itmo.services`" /etc/services || cat itmo.services >> /etc/services
-	install itmo.xinetd /etc/xinetd.d/itm
+	install itmo.xinetd /etc/xinetd.d/itmo
 	ln -s /usr/local/bin/itmo_ui /usr/local/bin/nitmo_ui
 
 itmo_ui.pot: itmo_ui
