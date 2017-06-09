@@ -67,13 +67,16 @@ do
 	AMOUNT=$(cat $PARAMFILE)
 
 	TRANSACTION=$(./itmot -a $SENDER $RECEIVER $AMOUNT)
-	echo $TRANSACTION
 
-	MSG="`$GETTEXT \"Transaction ID is:\"`"
-	MSG+="$TRANSACTION"
-	$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 10 40
-	end
+	if [[ $TRANSACTION = *"Error"* ]];#extracting Transaction error message from console
+	then
+		$DIALOG --title 'ERROR' --msgbox 'Transaction is not successful, Please try again!' 5 20
+	else
+		MSG="`$GETTEXT \"Transaction ID is:\"`"
+		MSG+="$TRANSACTION"
+		$DIALOG --title "`$GETTEXT \"TRANSACTION number is:\"`" --msgbox "$TRANSACTION" 10 40
+	fi
 
 	MSG="`$GETTEXT \"Do you want to make another transaction?\"`"
-	$DIALOG --title "$NAME" --yesno "$MSG" 10 50 || exit
+	$DIALOG --title "$Wallet" --yesno "$MSG" 10 50 || exit
 done
