@@ -1,9 +1,6 @@
 #!/bin/sh
 echo "Ethereum Wallet Transfer"
 
-pfile="./passwd"
-PASSWD=$(cat "$pfile")
-
 #Displays account of the user
 disp_account(){
 echo "Your Wallet is:"
@@ -11,13 +8,13 @@ echo "Your Wallet is:"
 }
 
 
-
 #Unlock user account and send certain number of 'ether' 
 send(){
 SENDER=$1
 RECEIVER=$2
 AMOUNT=$3
-./geth --exec "personal.unlockAccount('$SENDER', '$PASSWD')" attach > /dev/null
+PASSWORD=$4
+./geth --exec "personal.unlockAccount('$SENDER', '$PASSWORD')" attach > /dev/null
 TRANSACTION=`./geth --testnet --fast -exec "eth.sendTransaction({from: '$SENDER', to: '$RECEIVER', value: web3.toWei('$AMOUNT', 'ether')})" attach`
 echo $TRANSACTION
 }
@@ -33,10 +30,10 @@ fi
 
 #pulling variables from the UI script
 if [ ! -z $1 ];
-then	
+then
 		if [ $1 = "-a" ];
 		then
-			TRANSACTION="$(send $2 $3 $4)"
+			TRANSACTION="$(send $2 $3 $4 $5)"
 			echo $TRANSACTION
 			exit
 		fi
@@ -45,18 +42,20 @@ fi
 while true
 do
 	printf "Please enter the account of SENDER:\n"
-	read SENDER
+	echo $SENDER
 
 	printf "Please enter the account of RECEIVER:\n"
-	read RECEIVER
+	echo $RECEIVER
 
 	printf "Please enter the AMOUNT of ethers:\n"
-	read AMOUNT
+	echo $AMOUNT
 
-	TRANSACTION="$(send $SENDER $RECEIVER $AMOUNT)"
+	printf "Please enter your account PASSWORD:\n"
+	echo -s $PASSWORD
+
+	TRANSACTION="$(send $SENDER $RECEIVER $AMOUNT $PASSWORD)"
 	echo "Transaction code is:"
 	echo $TRANSACTION
-	exit
 
 done
 

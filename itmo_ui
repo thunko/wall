@@ -4,10 +4,6 @@ WALL=itmot
 HOST=localhost
 PORT=1234
 
-#SENDER=$1
-#RECEIVER=$2
-#AMOUNT=$3
-
 PARAMFILE=/tmp/wall-$$
 GETTEXT="gettext -d itmo_ui"
 
@@ -63,10 +59,15 @@ do
 	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert RECEIVER account:\"`" 8 35 2> $PARAMFILE || end
 	RECEIVER=$(cat $PARAMFILE)
 
-	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert AMOUNT to transfer Ethers:\"`" 8 35 2> $PARAMFILE || end
+	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert AMOUNT:\"`" 8 35 2> $PARAMFILE || end
 	AMOUNT=$(cat $PARAMFILE)
 
-	TRANSACTION=$(./itmot -a $SENDER $RECEIVER $AMOUNT)
+	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert PASSWORD for SENDER:\"`" 8 35 2> $PARAMFILE || end
+	PASSWORD=$(cat $PARAMFILE)
+
+	#TRANSACTION=$(./itmot -a $SENDER $RECEIVER $AMOUNT $PASSWORD)
+	echo $WALL
+	TRANSACTION=$(`$WALL` | ./itmot -a $SENDER $RECEIVER $AMOUNT $PASSWORD)
 
 	if [[ $TRANSACTION = *"Error"* ]];#extracting Transaction error message from console
 	then
@@ -78,5 +79,5 @@ do
 	fi
 
 	MSG="`$GETTEXT \"Do you want to make another transaction?\"`"
-	$DIALOG --title "$Wallet" --yesno "$MSG" 10 50 || exit
+	$DIALOG --title "Wallet" --yesno "$MSG" 10 50 || exit
 done
