@@ -57,13 +57,13 @@ fi
 
 while true
 do
-	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert SENDER account:\"`" 8 35 2> $PARAMFILE
+	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert SENDER account:\"`" 8 35 2> $PARAMFILE || end
 	SENDER=$(cat $PARAMFILE)
 
-	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert RECEIVER account:\"`" 8 35 2> $PARAMFILE
+	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert RECEIVER account:\"`" 8 35 2> $PARAMFILE || end
 	RECEIVER=$(cat $PARAMFILE)
 
-	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert AMOUNT to transfer Ethers:\"`" 8 35 2> $PARAMFILE
+	$DIALOG --title "Wallet" --inputbox "`gettext \"Insert AMOUNT to transfer Ethers:\"`" 8 35 2> $PARAMFILE || end
 	AMOUNT=$(cat $PARAMFILE)
 
 	TRANSACTION=$(./itmot -a $SENDER $RECEIVER $AMOUNT)
